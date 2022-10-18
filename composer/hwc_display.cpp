@@ -3346,8 +3346,8 @@ void HWCDisplay::SetCwbState() {
     cwb_status = CWBStatus::kCWBAvailable;
   }
 
-  DLOGV_IF(kTagClient, "CWB State: cwb_display_id = %d , cwb_client = %d , cwb_status = %d",
-           cwb_disp_id, cwb_state_.cwb_client, cwb_status);
+  DLOGV_IF(kTagClient, "CWB State: cwb_display_id = %lu , cwb_client = %d , cwb_status = %d",
+           reinterpret_cast<uint64_t>(cwb_disp_id), cwb_state_.cwb_client, cwb_status);
 }
 
 void HWCDisplay::ResetCwbState() {
@@ -3368,7 +3368,8 @@ HWC2::Error HWCDisplay::SetReadbackBuffer(const native_handle_t *buffer,
   std::lock_guard<std::mutex> lock(cwb_state_lock_);
   if (cwb_state_.cwb_disp_id != -1 && cwb_state_.cwb_disp_id != id_) {
     // cwb is already Active on a display other than on which it is requested.
-    DLOGE("CWB is already in use with display = %d", cwb_state_.cwb_disp_id);
+    DLOGE("CWB is already in use with display = %lu", 
+          reinterpret_cast<uint64_t>(cwb_state_.cwb_disp_id));
     return HWC2::Error::NoResources;
   }
 
@@ -3380,7 +3381,8 @@ HWC2::Error HWCDisplay::SetReadbackBuffer(const native_handle_t *buffer,
 
   if ((cwb_state_.cwb_status == CWBStatus::kCWBTeardown) ||
       (Fence::GetStatus(cwb_state_.teardown_frame_retire_fence) != Fence::Status::kSignaled)) {
-    DLOGW("CWB teardown is currently undergoing on display = %d", cwb_state_.cwb_disp_id);
+    DLOGW("CWB teardown is currently undergoing on display = %lu", 
+          reinterpret_cast<uint64_t>(cwb_state_.cwb_disp_id));
     return HWC2::Error::Unsupported;
   }
 

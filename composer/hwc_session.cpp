@@ -1338,7 +1338,7 @@ int32_t HWCSession::SetPowerMode(hwc2_display_t display, int32_t int_mode) {
       hwc_display_[display]->UpdatePowerMode(mode);
     }
     else {
-      DLOGW("Display %d no longer available.", display);
+      DLOGW("Display %lu no longer available.", display);
       return HWC2_ERROR_BAD_DISPLAY;
     }
   }
@@ -3386,7 +3386,7 @@ void HWCSession::VmReleaseDone(hwc2_display_t display) {
   SCOPE_LOCK(vm_release_locker_[display]);
   if (clients_waiting_for_vm_release_.test(display)) {
     vm_release_locker_[display].Signal();
-    DLOGI("Signal vm release done!! for display %d", display);
+    DLOGI("Signal vm release done!! for display %lu", display);
     clients_waiting_for_vm_release_.reset(display);
   }
 }
@@ -3425,7 +3425,7 @@ void HWCSession::HandleSecureSession() {
     }
   }
   if (is_active_virtual_display) {
-    [[maybe_unused]] auto error = DestroyVirtualDisplay(client_id);
+    DestroyVirtualDisplay(client_id);
   }
 
   // If it is called during primary prepare/commit, we need to pause any ongoing commit on
