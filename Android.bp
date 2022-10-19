@@ -9,6 +9,7 @@ soong_config_module_type {
         "gralloc4",
         "default",
         "var3",
+        "gralloc_handle_has_reserved_size",
     ],
     properties: [
         "cflags",
@@ -102,6 +103,9 @@ qtidisplay_cc_defaults {
             conditions_default: {
                 enabled: true,
             },
+        },
+        gralloc_handle_has_reserved_size : {
+            cflags: ["-DGRALLOC_HANDLE_HAS_RESERVED_SIZE"],
         },
     },
 }
