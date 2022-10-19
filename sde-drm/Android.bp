@@ -22,6 +22,7 @@ cc_library_shared {
         "-fno-operator-names",
         "-Wno-format",
         "-Wno-unused-parameter",
+        "-Wno-format",
         "-DLOG_TAG=\"SDE_DRM\"",
     ],
     srcs: [

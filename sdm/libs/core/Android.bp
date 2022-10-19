@@ -13,6 +13,7 @@ cc_library_shared {
         "-fno-operator-names",
         "-Wno-format",
         "-Wno-unused-parameter",
+        "-Wno-format",
         "-DLOG_TAG=\"SDM\"",
     ],
     shared_libs: [
