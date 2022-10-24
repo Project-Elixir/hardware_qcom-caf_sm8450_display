@@ -10,6 +10,7 @@ soong_config_module_type {
         "default",
         "var3",
         "gralloc_handle_has_reserved_size",
+        "gralloc_handle_has_custom_content_md_reserved_size",
     ],
     properties: [
         "cflags",
@@ -104,15 +105,27 @@ qtidisplay_cc_defaults {
                 enabled: true,
             },
         },
+    },
+}
+
+qtidisplay_cc_defaults {
+    name: "qtidisplay_gralloc_defaults",
+    soong_config_variables: {
         gralloc_handle_has_reserved_size : {
             cflags: ["-DGRALLOC_HANDLE_HAS_RESERVED_SIZE"],
+        },
+        gralloc_handle_has_custom_content_md_reserved_size : {
+            cflags: ["-DGRALLOC_HANDLE_HAS_CUSTOM_CONTENT_MD_RESERVED_SIZE"],
         },
     },
 }
 
 qtidisplay_cc_defaults {
     name: "qtidisplay_defaults",
-    defaults: ["qtidisplay_common_defaults"],
+    defaults: [
+        "qtidisplay_common_defaults",
+        "qtidisplay_gralloc_defaults"
+    ],
     soong_config_variables: {
         default: {
             header_libs: ["display_headers", "qti_kernel_headers"],
