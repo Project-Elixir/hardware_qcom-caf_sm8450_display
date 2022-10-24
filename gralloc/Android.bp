@@ -1,7 +1,10 @@
 //libgrallocutils
 cc_library_shared {
     name: "libgrallocutils",
-    defaults: ["qtidisplay_common_defaults"],
+    defaults: [
+        "qtidisplay_common_defaults",
+        "qtidisplay_gralloc_defaults"
+    ],
     vendor: true,
     sanitize: {
         integer_overflow: true,
@@ -41,6 +44,7 @@ cc_library_shared {
     defaults: [
         "qtidisplay_common_defaults",
         "gralloc_handle_has_reserved_size_defaults",
+        "qtidisplay_gralloc_defaults",
     ],
     sanitize: {
         integer_overflow: true,
@@ -110,7 +114,10 @@ cc_library_shared {
 //mapper4
 cc_library_shared {
     name: "android.hardware.graphics.mapper@4.0-impl-qti-display",
-    defaults: ["qtidisplay_common_defaults"],
+    defaults: [
+        "qtidisplay_common_defaults",
+        "qtidisplay_gralloc_defaults"
+    ],
     sanitize: {
         integer_overflow: true,
     },
@@ -151,7 +158,10 @@ cc_library_shared {
 //allocator
 cc_binary {
     name: "vendor.qti.hardware.display.allocator-service",
-    defaults: ["qtidisplay_common_defaults"],
+    defaults: [
+        "qtidisplay_common_defaults",
+        "qtidisplay_gralloc_defaults"
+    ],
     sanitize: {
         integer_overflow: true,
     },
